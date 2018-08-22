@@ -76,13 +76,12 @@
   Color :[255,90,50],
   Counts: 200,
   Radius : 320,
-  Style : 'style1',
+  Style : 'style7',
   Offset : 30,
   Angle : -90,
   CenterX: 0,
-  CenterY: 450,
+  CenterY: -190,
   SavePNG : false,
-  // SaveSvg : false,
   Save : function(){
     saveFrames("pic", "png", 1, 1);
   },
@@ -105,7 +104,7 @@ window.onload = function() {
   colorControl.onChange(draw);
   colorControl.listen();
 
-  StyleControl = folder1.add(options, 'Style', ['style1','style2','style3','style4','style5','style6'] );
+  StyleControl = folder1.add(options, 'Style', ['style1','style2','style3','style4','style5','style6','style7'] );
   StyleControl.listen();
 
   StyleControl.onChange(function(){
@@ -127,6 +126,9 @@ window.onload = function() {
       draw();
     }else if(options.Style== 'style6'){
       type = 'style6';  
+      draw();
+    }else if(options.Style== 'style7'){
+      type = 'style7';  
       draw();
     }
   });
