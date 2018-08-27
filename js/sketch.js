@@ -88,40 +88,29 @@ function speedline(r){
       y2 = y3-30;
     }
 
-    else if( i >250 && i <358){
-      sx = map(i, 250, 358, -r/1.2, -r/10);
-      sy = map(i, 250, 358, 10,60);
+    else if( i >250 && i <360){
+      sx = map(i, 250, 360, -r/1.2, 0);
+      sy = map(i, 250, 360, 10,60);
       x1 = sx;
       y1 = options.CenterY+ sy;
       x2 = x3+sx/15;
       y2 = y3*0.9;
     }
 
-    else if(i>358 && i<362){
-      var x_ =sin(radians(360))*r+random(options.Offset);
-      var y_ =cos(radians(360))*r+random(options.Offset);
-      stroke(options.Color[0],options.Color[1],options.Color[2],100);
-      line(options.CenterX,options.CenterY,x_,y_);
-      
-      fill(options.Color);
-      noStroke();
-      ellipse(x_,y_,5,5);
-    }
 
-    else if(i>362 && i<470){
-     sx = map(i, 362, 470, r/10, r/1.2);
-     sy = map(i, 362, 470,  10,60);
+    else if(i>360 && i<470){
+     sx = map(i, 360, 470, 0, r/1.2);
+     sy = map(i, 360, 470, r/4,r/30);
      x1 = sx;
      y1 = options.CenterY+sy;
      x2 = x3+sx/15;
-     y2 = y3*0.9;
-
+     y2 = y3*0.7;
    }
 
 
    else if(i >470 && i <500 ){
-    sx = map(i, 470, 500, r/4, r/30);
-    sy = map(i, 470, 500, -r/30, -r/20);
+    sx = map(i, 470, 500, r/6, r/10);
+    sy = map(i, 470, 500, -r/30, -r/10);
     x1 = sx;
     y1 = options.CenterY;
     x2 = x3+sx*0.2;
@@ -129,7 +118,7 @@ function speedline(r){
   }
 
   else if(i>500){
-    sx = map(i, 180, 220, 0, r/10);
+    sx = map(i, 180, 220, r/10, r/30);
     sy = map(i, 180, 220,0, -r/300);
     x1 = x3*0.5;
     y1 = options.CenterY-(r+options.CenterY)/3;
