@@ -47,9 +47,9 @@ function speedline(r){
     translate(width/2,height/2);
     noFill();
 
-    if(options.Style == 'style1'){    
+    if(options.Style == 'style7'){    
       beginShape();
-      vertex(options.CenterX,options.CenterY);
+      vertex(options.CenterX,options.CenterY+height/1.6);
       x3 = sin(radians(i))*r+random(options.Offset);
       y3 = cos(radians(i))*r+random(options.Offset);
       x1 = x3/2 +x3/200;
@@ -66,7 +66,7 @@ function speedline(r){
     }
 
 
-    if(options.Style == 'style7'){   
+    if(options.Style == 'style1'){   
 
       x3 = sin(radians(i))*r+random(options.Offset);
       y3 = cos(radians(i))*r+random(options.Offset);
@@ -177,7 +177,7 @@ function speedline(r){
     x4 = sin(radians(0))*r/3+random(options.Offset);
     y4 = cos(radians(0))*r/3+random(options.Offset);
 
-    x2 = (x1+x4)/2+random(options.Angle/2,options.Angle);
+    x2 = (x1+x4)/2+random(options.Angle/2.1,options.Angle/2.1+10);
     y2 = (y1+y4)/2;
 
     rotate(i);
