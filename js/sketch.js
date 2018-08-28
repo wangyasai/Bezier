@@ -1,20 +1,27 @@
-var lengths = 1500;
-let graphics;
+var SVG;
 var myCanvas;
-var img;
-var a1,a2,a3;
-var rx,ry,rz;
+var r;
+var x1,y1,x2,y2,x3,y3,x4,y4,sx,sy;
 
 
-function setup() {    
-  myCanvas = createCanvas(windowWidth,windowHeight,WEBGL);
-  backgroundColor = color(options.Background);
-  graphics = createGraphics(lengths, lengths);
+function setup() {
+  myCanvas = createCanvas(windowWidth, windowHeight);
+  if(width > height){
+    r = width;
+  }else{
+    r = height;
+  }
 }
 
 
-function p5LoadImage(dataURL){
-  img = loadImage(dataURL);
+function draw() { 
+  frameRate(0.00001);
+  if(options.SavePNG == true){
+    background(0,0,0,0);
+  }else{
+    background(options.Background);
+  }
+  speedline(options.Radius);
 }
 
 
@@ -28,199 +35,218 @@ function hexToRgb(hex) {
 }
 
 
-function draw() {
+function speedline(r){
   if(options.SavePNG == true){
-    background(0,0,0,0);
+    clear();
   }else{
-    background(options.Background);
+    background(options.Background);//
   }
 
-  howrotate();
 
-  if(options.Pattern == 'Pattern6' && type != 'image'){
-    stroke(options.Color1);
-    strokeWeight(options.StrokeWeight);
+  for(var i = 180;i<540;i+= 360/options.Counts){
+    push();
+    translate(width/2,height/2);
     noFill();
-    if(options.Smooth < 15){
-      options.Smooth = 15;
+
+    if(options.Style == 'style7'){    
+      beginShape();
+      vertex(options.CenterX,options.CenterY+height/1.6);
+      x3 = sin(radians(i))*r+random(options.Offset);
+      y3 = cos(radians(i))*r+random(options.Offset);
+      x1 = x3/1.5;
+      x2 = x1;
+      y1 = (-r/7+y3)/2;
+      y2 = y1;
+      stroke(options.Color[0],options.Color[1],options.Color[2],100);
+      bezierVertex(x1,y1,x2,y2,x3,y3);
+      endShape();
+
+      fill(options.Color);
+      noStroke();
+      ellipse(x3,y3,5,5);
     }
-    chooseShape(options.Smooth/5);
-  }else if(options.Pattern == 'Pattern7' && type != 'image'){
-    stroke(options.Color1);
-    strokeWeight(options.StrokeWeight);
-    fill(options.Background);
-    if(options.Smooth < 15){
-      options.Smooth = 15;
-    }
-    chooseShape(options.Smooth/5);
-  }else if(options.Pattern != 'Pattern6' &&options.Pattern != 'Pattern7' && type != 'image') {
-    fill(options.Color1);
-    texture(graphics);
-    pattern();
-    chooseShape(options.Smooth);
-  }else if(type == 'image'){
-    texture(img);
-    pattern();
-    chooseShape(options.Smooth);
-  }
-}
 
 
+    if(options.Style == 'style1'){   
 
+      x3 = sin(radians(i))*r+random(options.Offset);
+      y3 = cos(radians(i))*r+random(options.Offset);
 
-
-function pattern(){
-  graphics.background(options.Color2);
-  graphics.stroke(options.Color1);
-  graphics.strokeCap(ROUND);
-
-  for(var i = 0; i < options.Counts;i++){
-    graphics.strokeWeight(options.StrokeWeight*4);
-    y = map(i,0,options.Counts-1,0,lengths);
-    if(options.Pattern == 'Pattern1'){
-      graphics.line(0,y,lengths,y);
-    }else if(options.Pattern == 'Pattern2'){
-      graphics.line(y,0,y,lengths);
-    }
-  }
-
-
-  if(options.Pattern == 'Pattern3'){
-    for (var y = 0; y < lengths; y += options.Counts) {
-      for (var x = 0; x < lengths; x += options.Counts) {
-        graphics.noStroke();
-        graphics.push();
-        graphics.fill(options.Color1);
-        graphics.translate(x, y);
-        graphics.rect(0, 0, options.Counts/1.5, options.Counts/1.5);  
-        graphics.pop();
-      }
-    }
-  }
-
-
-
-  var s = lengths/int(options.Counts)/2 ;
-  for (var y = 0; y < int(options.Counts); y += 1 ) {
-    for (var x = 0; x < int(options.Counts); x += 1 ) {
-      graphics.noFill();
-      graphics.strokeWeight(options.StrokeWeight*4);
-
-      var posX = map(x,0,int(options.Counts),0,lengths);
-      var posY = map(y,0,int(options.Counts),20,lengths-20);
-      graphics.stroke(options.Color1);
-
-      if(options.Pattern == "Pattern4"){
-        graphics.line(posX,posY,posX+s,posY+s);
-        graphics.line(posX+s, posY+s, posX+s*2,posY);
-      }else if(options.Pattern == "Pattern5"){
-        graphics.line(posX,posY,posX+s*2,posY+s*2);
-        graphics.line(posX,posY+s*2,posX+s*2,posY);
-      }
-    }
-  }
-}
-
-
-function chooseShape(detail){
-  if(options.Shape == "Sphere"){
-    ellipsoid(options.Radius,options.Radius,options.Radius,int(detail),int(detail));
-  }else if(options.Shape== "Box"){
-    box(options.Radius*1.2);
-  }else if(options.Shape == "Cylinder"){
-    cylinder(options.Radius/1.5,options.Radius2*2,int(detail),int(detail));
-  }else if(options.Shape == "Torus"){
-    torus(options.Radius/1.6,options.Radius2,int(detail),int(detail));
-  }
-}
-
-
-function howrotate(){
- a1 = map(mouseX,-options.Radius,options.Radius,-TWO_PI,TWO_PI);
- a2 = map(mouseY,-options.Radius,options.Radius,-TWO_PI,TWO_PI);
- a3 = map(mouseY,-options.Radius,options.Radius,-TWO_PI,TWO_PI);
-
- rx = degrees(millis() * 0.00001 * options.Speed);
- ry = degrees(millis() * 0.00001 * options.Speed);
- rz = degrees(millis() * 0.00001 * options.Speed);
-
- if(degrees(options.RotateX ==true && options.RotateY == true && options.RotateZ == true)){
-  rotateX(rx);
-  rotateY(ry);
-  rotateZ(rz);
-
-  if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-    rotateX(rx+a1);
-    rotateY(ry+a2);
-    rotateZ(rz+a3);
-  }
-}
-else if(degrees(options.RotateX == false && options.RotateY == true && options.RotateZ == true)){
-  rotateX(0);
-  rotateY(ry);
-  rotateZ(rz);
-
-  if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-        // rotateX(rx+a1);
-        rotateY(ry+a2);
-        rotateZ(rz+a3);
-      }
-    }else if(degrees(options.RotateX == true && options.RotateY == false && options.RotateZ == true)){   
-     rotateX(rx);
-     rotateY(0);
-     rotateZ(rz);
-
-     if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-       rotateX(rx+a1);
-        // rotateY(ry+a2);
-        rotateZ(rz+a3);
-      }
-    }else if(degrees(options.RotateX == true && options.RotateY == true && options.RotateZ == false)){   
-     rotateX(rx);
-     rotateY(ry);
-     rotateZ(0);
-
-     if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-       rotateX(rx+a1);
-       rotateY(ry+a2);
-        // rotateZ(rz+a3);
-      }
-    }else if(degrees(options.RotateX == false && options.RotateY == false&& options.RotateZ == true)){  
-     rotateX(0);
-     rotateY(0);
-     rotateZ(rz);
-     if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-       rotateZ(rz+a3);
+      if( i < 220){
+       sx = map(i, 180, 220, -r/30, -r/1.5);
+       sy = map(i, 180, 220, 0, -r/30);
+       x1 = x3*0.5;
+       y1 = options.CenterY+sy;
+       x2 = x3*0.8;
+       y2 = y3;
      }
-   }else if(degrees(options.RotateX == false && options.RotateY == true&& options.RotateZ == false)){  
-    rotateX(0);
-    rotateY(ry);
-    rotateZ(0);
-    if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-      rotateY(ry+a1);
+     else if( i >220 && i <270){
+      sx = map(i, 220, 270, -r/5, -r/1.5);
+      sy = map(i, 220, 270, -r/30, -r/20);
+      x1 = sx;
+      y1 = options.CenterY+sy;
+      x2 = x3;
+      y2 = y3-sy;
     }
-  }else if(degrees(options.RotateX == true  && options.RotateY == false && options.RotateZ == false)){  
-    rotateX(rx);
-    rotateY(0);
-    rotateZ(0);
-    if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-      rotateX(rx+a1);
+
+    else if( i >270 && i <360){
+      sx = map(i, 270, 360, -r/1.5, 0);
+      sy = map(i, 270, 360, r/20, r);
+      x1 = sx;
+      y1 = options.CenterY;
+      x2 = x3+sx/15;
+      y2 = 0;
     }
-  }else if(degrees(options.RotateX == true  && options.RotateY == false && options.RotateZ == false)){  
-    rotateX(rx);
-    rotateY(0);
-    rotateZ(0);
-    if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-      rotateX(rx+a1);
-    }
-  }else if(degrees(options.RotateX == false  && options.RotateY == false && options.RotateZ == false)){  
-    rotateX(0);
-    rotateY(0);
-    rotateZ(0);
-    if(dist(mouseX,mouseY,width/2,height/2)<options.Radius){
-      rotateX(a1);
-      rotateY(a2);
-      rotateZ(a3);
-    }
+
+
+    else if(i>360 && i<450){
+     sx = map(i, 360, 450, 0, r/1.5);
+     sy = map(i, 360, 450, r/4,r/20);
+     x1 = sx;
+     y1 = options.CenterY;
+     x2 = x3+sx/15;
+     y2 = 0;
+   }
+
+
+   else if(i >450 && i <500 ){
+    sx = map(i, 450, 500, r/1.5, r/5);
+    sy = map(i, 450, 500, -r/30, -r/20);
+    x1 = sx;
+    y1 = options.CenterY+sy;
+    x2 = x3;
+    y2 = y3-sy;
   }
+
+  else if(i>500){
+    sx = map(i, 500, 540, r/10, r/30);
+    sy = map(i, 500, 540,0, -r/30);
+    x1 = x3*0.5;
+    y1 = options.CenterY+sy;
+    x2 = x3*0.8;
+    y2 = y3+10;
+  }
+
+  noFill();
+  push();
+  beginShape();
+  // rotate(-PI/6);
+  vertex(options.CenterX,options.CenterY);
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  bezierVertex(x1,y1,x2,y2,x3,y3);
+  endShape();
+
+  fill(options.Color);
+  noStroke();
+  ellipse(x3,y3,5,5);
+  pop();
+} 
+
+
+
+else if(options.Style == 'style2'){
+  x1 = sin(radians(0))*r+random(options.Offset);
+  y1 = cos(radians(0))*r+random(options.Offset);
+
+  x4 = sin(radians(360/options.Counts*30))*r+random(options.Offset);
+  y4 = cos(radians(360/options.Counts*30))*r+random(options.Offset);
+
+  x2 = (x1+x4)/2 + options.Angle;
+  y2 = (x2+x4)/2 + options.Angle;
+
+  rotate(i);
+
+  x3 = x2;
+  y3 = y2;
+  beginShape();
+  noFill();
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  vertex(x1,y1);
+  bezierVertex(x2,y2,x3,y3,x4,y4);
+  endShape();
+  fill(options.Color);
+  noStroke();
+  ellipse(x1,y1,5,5);
+  ellipse(x4,y4,5,5);
+} 
+
+
+else if(options.Style== 'style3'){
+  x1 = sin(radians(0))*r+random(options.Offset);
+  y1 = cos(radians(0))*r+random(options.Offset);
+
+  x4 = sin(radians(0))*r/3+random(options.Offset);
+  y4 = cos(radians(0))*r/3+random(options.Offset);
+
+  x2 = x1-options.Angle*2;
+  y2 = y1;
+  x3 = x4-options.Angle*2;
+  y3 = y4;
+  rotate(i);
+  beginShape();
+  noFill();
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  vertex(x1,y1);
+  bezierVertex(x2,y2,x3,y3,x4,y4);
+  endShape();
+  fill(options.Color);
+  noStroke();
+  ellipse(x1,y1,5,5);
+  ellipse(x4,y4,5,5);
+} 
+
+
+else if(options.Style== 'style4'){
+  x1 = sin(radians(0))*r+random(options.Offset);
+  y1 = cos(radians(0))*r+random(options.Offset);
+  rotate(i);
+
+  noFill();
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  ellipse(100+random(options.Offset),100+random(options.Offset),options.Radius,options.Radius);
+  fill(options.Color);
+  noStroke();
+  ellipse(x1,y1,5,5);
+} 
+else if(options.Style== 'style5'){
+  x1 = sin(radians(0))*r+random(options.Offset);
+  y1 = cos(radians(0))*r+random(options.Offset);
+
+  x2 = 100+random(options.Offset);
+  y2 = 100+random(options.Offset);
+  rotate(i);
+
+  noFill();
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  arc(x2, y2 ,options.Radius,options.Radius,radians(40),radians(220));
+  fill(options.Color);
+  noStroke();
+  ellipse(x1,y1,5,5);
+  ellipse(x2-100,y2-100,5,5);
+} 
+else if(options.Style== 'style6'){
+  x1 = sin(radians(0))*random(r*0.8,r)+random(options.Offset);
+  y1 = cos(radians(0))*random(r*0.8,r)+random(options.Offset);
+
+
+  x2 = sin(radians(0))*random(r*0.3,r*0.5)+random(options.Offset);
+  y2 = cos(radians(0))*random(r*0.3,r*0.5)+random(options.Offset);
+
+  rotate(i);
+  noFill();
+  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+
+  line(x1,y1,x2,y2);
+  fill(options.Color);
+
+  noStroke();
+  var radius= random(3,10);
+  ellipse(x1,y1,radius,radius);
+  ellipse(x2,y2,radius,radius);
+} 
+pop();
 }
+}
+
+
+
