@@ -1,4 +1,3 @@
-var SVG;
 var myCanvas;
 var r;
 var x1,y1,x2,y2,x3,y3,x4,y4,sx,sy;
@@ -95,7 +94,7 @@ function speedline(r){
       x1 = sx;
       y1 = options.CenterY;
       x2 = x3+sx/15;
-      y2 = 0;
+      y2 = y3;
     }
 
 
@@ -104,8 +103,8 @@ function speedline(r){
      sy = map(i, 360, 450, r/4,r/20);
      x1 = sx;
      y1 = options.CenterY;
-     x2 = x3+sx/15;
-     y2 = 0;
+     x2 = x3+sx/10;
+     y2 = y3;
    }
 
 
