@@ -76,7 +76,7 @@
   Radius : 320,
   Style : 'style1',
   Offset : 15,
-  Angle : -90,
+  // Angle : -90,
   CenterX: 0,
   CenterY: -230,
   SavePNG : false,
@@ -84,6 +84,7 @@
     saveFrames("pic", "png", 1, 1);
   },
 }
+
 
 
 var imageControl,colorControl,bgControl, SmoothControl2,OffsetControl,Xcontrol,Ycontrol,SaveControl,RadiusControl,AngelControl,StyleControl,SaveControl;
@@ -96,11 +97,9 @@ window.onload = function() {
 
   bgControl = folder1.addColor(options, 'Background');
   bgControl.onChange(draw);
-  bgControl.listen();
 
   colorControl = folder1.addColor(options, 'Color');
   colorControl.onChange(draw);
-  colorControl.listen();
 
   StyleControl = folder1.add(options, 'Style', ['style1','style2','style3','style4','style5','style6','style7'] );
   StyleControl.listen();
@@ -134,27 +133,27 @@ window.onload = function() {
 
   CountsControl = folder1.add(options, 'Counts',10,360);
   CountsControl.onChange(draw);
-  CountsControl.listen();
+  // CountsControl.listen();
 
-  OffsetControl = folder1.add(options, 'Offset',0,500);
+  OffsetControl = folder1.add(options, 'Offset',0,50);
   OffsetControl.onChange(draw);
-  OffsetControl.listen();
+  // OffsetControl.listen();
 
-  AngelControl = folder1.add(options, 'Angle',-360,360);
-  AngelControl.onChange(draw);
-  AngelControl.listen();
+  // AngelControl = folder1.add(options, 'Angle',-360,360);
+  // AngelControl.onChange(draw);
+  // AngelControl.listen();
 
   RadiusControl = folder1.add(options, 'Radius',100,1000);
   RadiusControl.onChange(draw);
-  RadiusControl.listen();
+  // RadiusControl.listen();
 
   XControl = folder1.add(options, 'CenterX',-1000,1000);
   XControl.onChange(draw);
-  XControl.listen();
+  // XControl.listen();
 
   YControl = folder1.add(options, 'CenterY',-1000,1000);
   YControl.onChange(draw);
-  YControl.listen();
+  // YControl.listen();
 
   pngControl = folder1.add(options, 'SavePNG');
   pngControl.onChange(draw);

@@ -237,8 +237,8 @@ else if(options.Style == 'style2'){
   x4 = sin(radians(360/options.Counts*30))*r+random(options.Offset);
   y4 = cos(radians(360/options.Counts*30))*r+random(options.Offset);
 
-  x2 = (x1+x4)/2 + options.Angle;
-  y2 = (x2+x4)/2 + options.Angle;
+  x2 = (x1+x4)/2 -90;
+  y2 = (x2+x4)/2 -90;
 
   rotate(i);
 
@@ -264,9 +264,9 @@ else if(options.Style== 'style3'){
   x4 = sin(radians(0))*r/3+random(options.Offset);
   y4 = cos(radians(0))*r/3+random(options.Offset);
 
-  x2 = x1-options.Angle*2;
+  x2 = x1-180;
   y2 = y1;
-  x3 = x4-options.Angle*2;
+  x3 = x4-180;
   y3 = y4;
   rotate(i);
   beginShape();
