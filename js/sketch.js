@@ -16,7 +16,7 @@ function setup() {
 
 
 function draw() { 
-  frameRate(0.001);
+  frameRate(1);
   if(options.SavePNG == true){
     background(0,0,0,0);
   }else{
@@ -147,33 +147,33 @@ if(options.Style == 'style1'){
   else if( i >220 && i <360){
     if(i%5<2){
      x3 = sin(radians(i))*r*0.45+random(options.Offset)-random(options.Radius/5);
-    y3 = cos(radians(i))*r*0.15+random(options.Offset)-random(options.Radius/2);
-    sx = map(i, 220, 360, -r1/3.3,0);
-    sy = map(i, 220, 360, -10, 10);
-    x1 = sx;
-    y1 = options.CenterY;
-    x2 = x3+sx/10;
-    y2 = y3;
-    noFill();
-    push();
-    beginShape();  
-    push();
-    vertex(options.CenterX,options.CenterY);
-    stroke(options.Color[0],options.Color[1],options.Color[2],120);
-    bezierVertex(x1,y1,x2,y2,x3,y3);
-    endShape();
+     y3 = cos(radians(i))*r*0.15+random(options.Offset)-random(options.Radius/2);
+     sx = map(i, 220, 360, -r1/3.3,0);
+     sy = map(i, 220, 360, -10, 10);
+     x1 = sx;
+     y1 = options.CenterY;
+     x2 = x3+sx/10;
+     y2 = y3;
+     noFill();
+     push();
+     beginShape();  
+     push();
+     vertex(options.CenterX,options.CenterY);
+     stroke(options.Color[0],options.Color[1],options.Color[2],120);
+     bezierVertex(x1,y1,x2,y2,x3,y3);
+     endShape();
 
-    fill(options.Color);
-    noStroke();
-    ellipse(x3,y3,5,5);
-    pop();
+     fill(options.Color);
+     noStroke();
+     ellipse(x3,y3,5,5);
+     pop();
 
-    pop();
-    }
-    
-  }
+     pop();
+   }
 
-  else if(i>360 && i<500){
+ }
+
+ else if(i>360 && i<500){
    if(i%5<2){    
     x3 = sin(radians(i))*r*0.45+random(options.Offset)+random(options.Radius/5);
     y3 = cos(radians(i))*r*0.15+random(options.Offset)-random(options.Radius/2);
@@ -203,27 +203,27 @@ if(options.Style == 'style1'){
 }
 
 else if(i >500  ){
-    var r1 = map(i,500,600,r*0.88,r*0.72);
-    x3 = sin(radians(i))*r*0.95+random(options.Offset);
-    y3 = cos(radians(i))*r*0.87+random(options.Offset);
-    sx = map(i, 500, 600,r1/10, r1/5);
-    sy = map(i, 500, 600, 0, -r1/10);
-    x1 = x3*0.5;
-    y1 = options.CenterY+sy;
-    x2 = x3*0.8;
-    y2 = y3;
-    noFill();
-    push();
-    beginShape();
-    vertex(options.CenterX,options.CenterY);
-    stroke(options.Color[0],options.Color[1],options.Color[2],120);
-    bezierVertex(x1,y1,x2,y2,x3,y3);
-    endShape();
+  var r1 = map(i,500,600,r*0.88,r*0.72);
+  x3 = sin(radians(i))*r*0.95+random(options.Offset);
+  y3 = cos(radians(i))*r*0.87+random(options.Offset);
+  sx = map(i, 500, 600,r1/10, r1/5);
+  sy = map(i, 500, 600, 0, -r1/10);
+  x1 = x3*0.5;
+  y1 = options.CenterY+sy;
+  x2 = x3*0.8;
+  y2 = y3;
+  noFill();
+  push();
+  beginShape();
+  vertex(options.CenterX,options.CenterY);
+  stroke(options.Color[0],options.Color[1],options.Color[2],120);
+  bezierVertex(x1,y1,x2,y2,x3,y3);
+  endShape();
 
-    fill(options.Color);
-    noStroke();
-    ellipse(x3,y3,5,5);
-    pop();
+  fill(options.Color);
+  noStroke();
+  ellipse(x3,y3,5,5);
+  pop();
   
 }
 
@@ -252,8 +252,10 @@ else if(options.Style == 'style2'){
   endShape();
   fill(options.Color);
   noStroke();
-  ellipse(x1,y1,5,5);
-  ellipse(x4,y4,5,5);
+  var angle = 0;
+  ellipse(x1,y1,5, 5);
+  ellipse(x4,y4,5, 5);
+  angle += 1;
 } 
 
 
