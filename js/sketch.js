@@ -3,7 +3,8 @@ var r;
 var x1,y1,x2,y2,x3,y3,x4,y4,sx,sy;
 var radius;
 var mode;
-// 
+var rgb;
+
 function setup() {
   myCanvas = createCanvas(windowWidth, windowHeight);
   if(width > height){
@@ -17,6 +18,7 @@ function setup() {
 
 function draw() { 
   frameRate(1);
+  rgb =  hexToRgb(options.Color);
   if(options.SavePNG == true){
     background(0,0,0,0);
   }else{
@@ -110,7 +112,7 @@ function speedline(r){
   push();
   beginShape();
   vertex(options.CenterX,options.CenterY);
-  stroke(options.Color[0],options.Color[1],options.Color[2],120);
+  stroke(rgb.r, rgb.g, rgb.b,120);
   bezierVertex(x1,y1,x2,y2,x3,y3);
   endShape();
 
@@ -135,7 +137,7 @@ if(options.Style == 'style1'){
     push();
     beginShape();
     vertex(options.CenterX,options.CenterY);
-    stroke(options.Color[0],options.Color[1],options.Color[2],120);
+      stroke(rgb.r, rgb.g, rgb.b,120);
     bezierVertex(x1,y1,x2,y2,x3,y3);
     endShape();
 
@@ -159,7 +161,7 @@ if(options.Style == 'style1'){
      beginShape();  
      push();
      vertex(options.CenterX,options.CenterY);
-     stroke(options.Color[0],options.Color[1],options.Color[2],120);
+     stroke(rgb.r, rgb.g, rgb.b,120);
      bezierVertex(x1,y1,x2,y2,x3,y3);
      endShape();
 
@@ -188,7 +190,7 @@ if(options.Style == 'style1'){
     beginShape();  
     push();
     vertex(options.CenterX,options.CenterY);
-    stroke(options.Color[0],options.Color[1],options.Color[2],120);
+    stroke(rgb.r, rgb.g, rgb.b,120);
     bezierVertex(x1,y1,x2,y2,x3,y3);
     endShape();
 
@@ -216,7 +218,7 @@ else if(i >500  ){
   push();
   beginShape();
   vertex(options.CenterX,options.CenterY);
-  stroke(options.Color[0],options.Color[1],options.Color[2],120);
+  stroke(rgb.r, rgb.g, rgb.b,120);
   bezierVertex(x1,y1,x2,y2,x3,y3);
   endShape();
 
@@ -246,7 +248,7 @@ else if(options.Style == 'style2'){
   y3 = y2;
   beginShape();
   noFill();
-  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  stroke(rgb.r, rgb.g, rgb.b,100);
   vertex(x1,y1);
   bezierVertex(x2,y2,x3,y3,x4,y4);
   endShape();
@@ -273,7 +275,8 @@ else if(options.Style== 'style3'){
   rotate(i);
   beginShape();
   noFill();
-  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+
+  stroke(rgb.r, rgb.g, rgb.b,100);
   vertex(x1,y1);
   bezierVertex(x2,y2,x3,y3,x4,y4);
   endShape();
@@ -290,7 +293,7 @@ else if(options.Style== 'style4'){
   rotate(i);
 
   noFill();
-  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+  stroke(rgb.r, rgb.g, rgb.b,100);
   ellipse(100+random(options.Offset),100+random(options.Offset),options.Radius,options.Radius);
   fill(options.Color);
   noStroke();
@@ -306,7 +309,8 @@ else if(options.Style== 'style5'){
   rotate(i);
 
   noFill();
-  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+
+  stroke(rgb.r, rgb.g, rgb.b,100);
   arc(x2, y2 ,options.Radius,options.Radius,radians(40),radians(220));
   fill(options.Color);
   noStroke();
@@ -323,7 +327,7 @@ else if(options.Style== 'style6'){
 
   rotate(i);
   noFill();
-  stroke(options.Color[0],options.Color[1],options.Color[2],150);
+  stroke(rgb.r, rgb.g, rgb.b,150);
 
   line(x1,y1,x2,y2);
   fill(options.Color);
@@ -342,7 +346,8 @@ else if(options.Style == 'style7'){
   x2 = x1;
   y1 = (-r/7+y3)/2;
   y2 = y1;
-  stroke(options.Color[0],options.Color[1],options.Color[2],100);
+
+  stroke(rgb.r, rgb.g, rgb.b,100);
   bezierVertex(x1,y1,x2,y2,x3,y3);
   endShape();
 
